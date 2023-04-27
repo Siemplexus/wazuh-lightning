@@ -365,6 +365,11 @@ void OS_ConvertToValidAgentName(char *u_name) {
         memmove(u_name + i, u_name + i + 1, uname_length - i);
         uname_length--;
     }
+
+    // Remove any trailing dots
+    if (u_name && *u_name && u_name[uname_length] == '.') {
+        u_name[uname_length-1] = '\0';
+    }
 }
 
 int NameExist(const char *u_name)

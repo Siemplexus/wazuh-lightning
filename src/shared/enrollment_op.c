@@ -155,6 +155,12 @@ static char *w_enrollment_extract_agent_name(const w_enrollment_ctx *cfg) {
             os_free(lhostname);
             return NULL;
         }
+
+        /* Get full name if available */
+        struct hostent* h;
+        if ((h = gethostbyname(lhostname)) != NULL)
+            lhostname = h->h_name;
+
         OS_ConvertToValidAgentName(lhostname);
     } else {
         lhostname = cfg->target_cfg->agent_name;
